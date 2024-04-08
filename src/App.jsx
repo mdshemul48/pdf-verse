@@ -1,7 +1,7 @@
-import { ViewAllPdfBook } from "./Components/PdfBooks/ViewAllPdfBook/ViewAllPdfBook.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { SideBar } from "./Components/Shared/SideBar/SideBar.jsx";
+import { ViewAllPdfBook } from "./Components/PdfBooks/ViewAllPdfBook/ViewAllPdfBook.jsx";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <div className="ms-2 mt-2">
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={ViewAllPdfBook} />
+              <Route path="/" element={<ViewAllPdfBook />} />
             </Routes>
           </BrowserRouter>
         </div>

@@ -10,7 +10,7 @@ import { Button, Icon, Input, Sidebar, Typography } from "keep-react";
 
 export const SideBar = () => {
   return (
-    <Sidebar className="h-svh">
+    <Sidebar>
       <Sidebar.Header className="space-y-2.5">
         <div className="flex items-center justify-between">
           <Typography

@@ -6,4 +6,11 @@ export default {
     "node_modules/keep-react/**/*.{js,jsx,ts,tsx}",
   ],
   presets: [keepPreset],
+  theme: {
+    extend: {
+      fontFamily: {
+        Libre: ["Libre Baskerville", "serif"],
+      },
+    },
+  },
 };
