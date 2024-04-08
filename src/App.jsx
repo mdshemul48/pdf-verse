@@ -9,7 +9,7 @@ function App() {
     <>
       <NavbarComponent />
       <main>
-        <div className="ms-2 mt-2">
+        <div className="mt-2">
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<ViewAllPdfBook />} />

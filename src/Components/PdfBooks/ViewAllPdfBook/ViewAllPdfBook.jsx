@@ -4,8 +4,8 @@ import { PdfBook } from "./PdfBook";
 const BreadcrumbComponent = () => {
   return (
     <Breadcrumb>
-      <Breadcrumb.Item>Pdf Verse</Breadcrumb.Item>
-      <Breadcrumb.Item activeType="base">Pdf Books</Breadcrumb.Item>
+      <Breadcrumb.Item>PDF Verse</Breadcrumb.Item>
+      <Breadcrumb.Item activeType="base">PDF Books</Breadcrumb.Item>
     </Breadcrumb>
   );
 };
