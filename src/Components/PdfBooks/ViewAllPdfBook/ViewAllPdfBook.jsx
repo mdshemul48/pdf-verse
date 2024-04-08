@@ -12,7 +12,7 @@ const BreadcrumbComponent = () => {
 
 export const ViewAllPdfBook = () => {
   return (
-    <div className="w-100">
+    <div className="w-[75%] mx-auto">
       <BreadcrumbComponent />
       <div className="flex flex-wrap ">
         <PdfBook />

@@ -40,7 +40,7 @@ export const PdfBook = () => {
           </p>
           <ProgressBar />
         </Card.Description>
-        <div className="flex 	">
+        <div className="flex">
           <Button size="sm" color="success" className="mt-2 flex-auto">
             Start Reading
           </Button>
