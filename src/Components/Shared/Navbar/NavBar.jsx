@@ -1,4 +1,5 @@
 import { Navbar, Button } from "keep-react";
+import { Link } from "react-router-dom";
 
 export const NavbarComponent = () => {
   return (
@@ -13,17 +14,23 @@ export const NavbarComponent = () => {
             tag="ul"
             className="lg:flex hidden items-center justify-between gap-8"
           >
-            <Navbar.Link linkName="Home" />
-            <Navbar.Link linkName="Projects" />
-            <Navbar.Link linkName="About" />
+            <Link to="/">
+              <Navbar.Link linkName="PDF Books" href="#" />
+            </Link>
+            <Link to="/add-new-pdf">
+              <Navbar.Link linkName="Add New PDF" />
+            </Link>
+            <Navbar.Link linkName="Users" href="#" />
           </Navbar.Container>
           <Navbar.Collapse collapseType="sidebar">
             <Navbar.Container tag="ul" className="flex flex-col gap-5">
-              <Navbar.Link linkName="Home" />
-              <Navbar.Link linkName="Projects" />
-              <Navbar.Link linkName="Blogs" />
-              <Navbar.Link linkName="News" />
-              <Navbar.Link linkName="Resources" />
+              <Link to="/">
+                <Navbar.Link linkName="PDF Books" href="#" />
+              </Link>
+              <Link to="/add-new-pdf">
+                <Navbar.Link linkName="Add New PDF" />
+              </Link>
+              <Navbar.Link linkName="Users" href="#" />
             </Navbar.Container>
           </Navbar.Collapse>
         </Navbar.Container>

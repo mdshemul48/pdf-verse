@@ -7,20 +7,18 @@ import { AddNewPdfBook } from "./Components/PdfBooks/AddNewPdfBook/AddNewPdfBook
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <NavbarComponent />
       <main>
         <div className="mt-2">
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<ViewAllPdfBook />} />
-              <Route path="/read/:pdfId" element={<ViewSinglePdfBook />} />
-              <Route path="/add-new-pdf" element={<AddNewPdfBook />} />
-            </Routes>
-          </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<ViewAllPdfBook />} />
+            <Route path="/read/:pdfId" element={<ViewSinglePdfBook />} />
+            <Route path="/add-new-pdf" element={<AddNewPdfBook />} />
+          </Routes>
         </div>
       </main>
-    </>
+    </BrowserRouter>
   );
 }
 

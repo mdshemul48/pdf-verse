@@ -54,7 +54,7 @@ export const AddNewPdfBook = () => {
     <form onSubmit={onSubmitHandler} className="w-[75%] mx-auto">
       <BreadcrumbComponent />
 
-      <div className="w-[75%] mt-5">
+      <div className="lg:w-[75%] mt-5">
         <fieldset className="space-y-1.5 p-2">
           <Label htmlFor="name">Name*</Label>
           <Input
@@ -86,7 +86,7 @@ export const AddNewPdfBook = () => {
           </p>
         </fieldset>
         <Label>Upload PDF & Cover Picture*</Label>
-        <div className="flex justify-evenly mt-5 ">
+        <div className="flex flex-col lg:flex-row justify-evenly mt-5 space-y-2">
           <PdfUpload setFile={setPdfFile} file={pdfFile} />
           <ImageUpload setFile={setPictureFile} file={pictureFile} />
         </div>
