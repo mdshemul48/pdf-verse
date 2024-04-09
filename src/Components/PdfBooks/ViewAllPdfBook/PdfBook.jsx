@@ -1,6 +1,7 @@
 import { Button, Card } from "keep-react";
 import { LineProgress } from "keep-react";
 import { Trash, Swap } from "phosphor-react";
+import { Link } from "react-router-dom";
 
 const ProgressBar = ({ pdfInfo }) => {
   return (
@@ -20,7 +21,6 @@ const ProgressBar = ({ pdfInfo }) => {
 };
 
 export const PdfBook = ({ pdfInfo }) => {
-  console.log(pdfInfo);
   return (
     <Card className="m-2">
       <Card.Header>
@@ -42,9 +42,11 @@ export const PdfBook = ({ pdfInfo }) => {
           <ProgressBar pdfInfo={pdfInfo} />
         </Card.Description>
         <div className="flex">
-          <Button size="sm" color="success" className="mt-2 flex-auto">
-            Start Reading
-          </Button>
+          <Link to={`/read/${pdfInfo.id}`}>
+            <Button size="sm" color="success" className="mt-2 flex-auto">
+              Start Reading
+            </Button>
+          </Link>
           <Button
             size="sm"
             color="warning"

@@ -1,5 +1,6 @@
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
+import { updateDoc, getDoc, doc } from "firebase/firestore";
 
 // Call the async function
 
@@ -11,6 +12,8 @@ import { Breadcrumb, Divider } from "keep-react";
 import { BookDetail } from "./BookDetail";
 import { useEffect, useState } from "react";
 import { PDFViewer } from "./PDFViewer";
+import { useParams } from "react-router-dom";
+import { db } from "../../../firebase/firebaseConfig";
 const BreadcrumbComponent = () => {
   return (
     <Breadcrumb>
@@ -22,6 +25,9 @@ const BreadcrumbComponent = () => {
 };
 
 const ViewSinglePdfBook = () => {
+  const { pdfId } = useParams();
+  const [pdfInfo, setPdfInfo] = useState(null);
+
   const [pageLoaded, setPageLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [numberOfPage, setNumberOfPages] = useState(0);
@@ -30,38 +36,48 @@ const ViewSinglePdfBook = () => {
   const { CurrentPageLabel, jumpToPage } = pageNavigationPluginInstance;
 
   useEffect(() => {
-    if (
-      currentPage != 0 &&
-      numberOfPage != 0 &&
-      !pageLoaded &&
-      localStorage.getItem("bookPage")
-    ) {
-      jumpToPage(parseInt(localStorage.getItem("bookPage")) - 1);
+    const fetch = async () => {
+      const data = await getDoc(doc(db, "books", pdfId));
+      setPdfInfo({ ...data.data(), id: doc.id });
+    };
+    fetch();
+  }, [pdfId]);
+
+  useEffect(() => {
+    if (currentPage != 0 && numberOfPage != 0 && !pageLoaded && pdfInfo) {
+      jumpToPage(pdfInfo.currentPage - 1);
       setPageLoaded(true);
     }
-  }, [currentPage, jumpToPage, numberOfPage, pageLoaded]);
+  }, [currentPage, jumpToPage, numberOfPage, pageLoaded, pdfInfo]);
 
   useEffect(() => {
     if (currentPage != 0) {
-      localStorage.setItem("bookPage", currentPage);
+      updateDoc(doc(db, "books", pdfId), { currentPage });
     }
-  }, [currentPage]);
+  }, [currentPage, pdfId]);
 
   return (
-    <div>
-      <div className="lg:w-[75%] mx-auto">
-        <BreadcrumbComponent />
-        <BookDetail currentPage={currentPage} numberOfPage={numberOfPage} />
+    pdfInfo && (
+      <div>
+        <div className="lg:w-[75%] mx-auto">
+          <BreadcrumbComponent />
+          <BookDetail
+            currentPage={currentPage}
+            numberOfPage={numberOfPage}
+            pdfInfo={pdfInfo}
+          />
+        </div>
+        <Divider className="my-2" />
+        <PDFViewer
+          pdfInfo={pdfInfo}
+          CurrentPageLabel={CurrentPageLabel}
+          setCurrentPage={setCurrentPage}
+          setNumberOfPages={setNumberOfPages}
+          defaultLayoutPluginInstance={defaultLayoutPluginInstance}
+          pageNavigationPluginInstance={pageNavigationPluginInstance}
+        />
       </div>
-      <Divider className="my-2" />
-      <PDFViewer
-        CurrentPageLabel={CurrentPageLabel}
-        setCurrentPage={setCurrentPage}
-        setNumberOfPages={setNumberOfPages}
-        defaultLayoutPluginInstance={defaultLayoutPluginInstance}
-        pageNavigationPluginInstance={pageNavigationPluginInstance}
-      />
-    </div>
+    )
   );
 };
 

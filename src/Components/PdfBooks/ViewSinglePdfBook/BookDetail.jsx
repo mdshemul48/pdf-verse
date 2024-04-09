@@ -1,28 +1,25 @@
 import { CircleProgress, Typography } from "keep-react";
 
-export const BookDetail = ({ currentPage, numberOfPage }) => {
+export const BookDetail = ({ currentPage, numberOfPage, pdfInfo }) => {
   return (
     <div className="mt-5 ms-5 lg:flex justify-between">
       <div>
         <Typography
           variant="heading-3"
-          className="font-Libre font-semibold text-slate-900"
+          className="font-Libre font-semibold text-slate-900 max-w-[75%]"
         >
-          The Alchemist
+          {pdfInfo.name}
         </Typography>
         <Typography variant="body-1" className="text-slate-600 w-[75%] my-2">
-          Combining magic, mysticism, wisdom, and wonder into an inspiring tale
-          of self-discovery, The Alchemist has become a modern classic, selling
-          millions of copies around the world and transforming the lives of
-          countless readers across generations.
+          {pdfInfo.description}
         </Typography>
         <Typography variant="body-3" className="text-slate-600 mt-2">
-          By <span className="text-blue-600">Paulo Coelho</span>
+          By <span className="text-blue-600">{pdfInfo.writer}</span>
         </Typography>
       </div>
       <div>
         <img
-          src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1654371463i/18144590.jpg"
+          src={pdfInfo.imageDetail.fileUrl}
           alt="image"
           className="lg:mt-0 mt-5 rounded-lg lg:w-[500px] w-full"
         />

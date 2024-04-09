@@ -6,7 +6,9 @@ export const PDFViewer = ({
   setNumberOfPages,
   defaultLayoutPluginInstance,
   pageNavigationPluginInstance,
+  pdfInfo,
 }) => {
+  console.log(pdfInfo);
   return (
     <div style={{ height: "100vh" }} className="h-[100vh]">
       <CurrentPageLabel>
@@ -18,10 +20,8 @@ export const PDFViewer = ({
       </CurrentPageLabel>
       <Viewer
         theme={"dark"}
-        defaultScale={1.7}
-        fileUrl={
-          "https://firebasestorage.googleapis.com/v0/b/pdf-verse-books.appspot.com/o/681728d3-489a-4634-baea-539365989661.pdf?alt=media&token=4c981463-67f4-4ee6-a0e7-446bafb69ebe"
-        }
+        defaultScale={1.6}
+        fileUrl={pdfInfo.pdfDetail.fileUrl}
         plugins={[defaultLayoutPluginInstance, pageNavigationPluginInstance]}
       />
     </div>

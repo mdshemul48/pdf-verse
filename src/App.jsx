@@ -14,7 +14,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<ViewAllPdfBook />} />
-              <Route path="/view" element={<ViewSinglePdfBook />} />
+              <Route path="/read/:pdfId" element={<ViewSinglePdfBook />} />
               <Route path="/add-new-pdf" element={<AddNewPdfBook />} />
             </Routes>
           </BrowserRouter>
