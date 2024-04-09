@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 
