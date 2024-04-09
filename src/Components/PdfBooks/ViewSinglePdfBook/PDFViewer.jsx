@@ -20,7 +20,7 @@ export const PDFViewer = ({
         theme={"dark"}
         defaultScale={1.7}
         fileUrl={
-          "https://firebasestorage.googleapis.com/v0/b/pdf-verse-books.appspot.com/o/3a32cbfe-24e9-4b2b-bf6b-1910d50fbae2.pdf?alt=media&token=9b40a434-6ffd-46c5-a7e4-7e633fb78a7c"
+          "https://firebasestorage.googleapis.com/v0/b/pdf-verse-books.appspot.com/o/681728d3-489a-4634-baea-539365989661.pdf?alt=media&token=4c981463-67f4-4ee6-a0e7-446bafb69ebe"
         }
         plugins={[defaultLayoutPluginInstance, pageNavigationPluginInstance]}
       />

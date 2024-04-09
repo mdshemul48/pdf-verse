@@ -1,44 +1,45 @@
 import { Button, Card } from "keep-react";
 import { LineProgress } from "keep-react";
 import { Trash, Swap } from "phosphor-react";
-const ProgressBar = () => {
+
+const ProgressBar = ({ pdfInfo }) => {
   return (
-    <LineProgress progress={55} lineBg="bg-error-50" className="bg-error-500">
+    <LineProgress
+      progress={((pdfInfo.currentPage / pdfInfo.totalPage) * 100).toFixed(1)}
+      lineBg="bg-error-50"
+      className="bg-error-500"
+    >
       <LineProgress.Text className="text-error-400 font-semibold">
-        55/100
+        {pdfInfo.currentPage}/{pdfInfo.totalPage}
       </LineProgress.Text>
       <LineProgress.Text className="text-error-400 font-semibold">
-        55%
+        {((pdfInfo.currentPage / pdfInfo.totalPage) * 100).toFixed(1)}%
       </LineProgress.Text>
     </LineProgress>
   );
 };
 
-export const PdfBook = () => {
+export const PdfBook = ({ pdfInfo }) => {
+  console.log(pdfInfo);
   return (
     <Card className="m-2">
       <Card.Header>
         <img
-          src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1654371463i/18144590.jpg"
+          src={pdfInfo.imageDetail.fileUrl}
           alt="image"
           width={600}
           height={400}
         />
       </Card.Header>
       <Card.Content>
-        <Card.Title className="font-Libre font-bold">The Alchemist</Card.Title>
+        <Card.Title className="font-Libre font-bold">{pdfInfo.name}</Card.Title>
         <Card.Title className="text-lg text-gray-500 font-semibold ">
-          Paulo Coelho
+          {pdfInfo.writer}
         </Card.Title>
 
         <Card.Description>
-          <p className="text-gray-600 font-sans">
-            Combining magic, mysticism, wisdom, and wonder into an inspiring
-            tale of self-discovery, The Alchemist has become a modern classic,
-            selling millions of copies around the world and transforming the
-            lives of countless readers across generations.
-          </p>
-          <ProgressBar />
+          <p className="text-gray-600 font-sans">{pdfInfo.description}</p>
+          <ProgressBar pdfInfo={pdfInfo} />
         </Card.Description>
         <div className="flex">
           <Button size="sm" color="success" className="mt-2 flex-auto">

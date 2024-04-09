@@ -28,7 +28,10 @@ export const BookDetail = ({ currentPage, numberOfPage }) => {
         />
       </div>
       <div className="flex justify-center items-center lg:mt-0 mt-6 lg:ms-10 border-2 border-slate-400 rounded-md p-5">
-        <CircleProgress progress={55} size="2xl">
+        <CircleProgress
+          progress={((currentPage / numberOfPage) * 100).toFixed(1)}
+          size="2xl"
+        >
           <CircleProgress.Text>
             {currentPage}/{numberOfPage} (
             {((currentPage / numberOfPage) * 100).toFixed(1)}%)
