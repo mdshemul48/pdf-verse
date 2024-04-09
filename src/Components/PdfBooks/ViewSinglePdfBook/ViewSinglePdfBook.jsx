@@ -1,10 +1,8 @@
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 
-const pdfjs = await import("pdfjs-dist/build/pdf");
-const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.entry");
+// Call the async function
 
-pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
@@ -31,7 +29,6 @@ const ViewSinglePdfBook = () => {
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const { CurrentPageLabel, jumpToPage } = pageNavigationPluginInstance;
 
-  console.log(currentPage, numberOfPage);
   useEffect(() => {
     if (
       currentPage != 0 &&
