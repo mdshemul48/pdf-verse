@@ -8,6 +8,7 @@ import { Breadcrumb, Button, Input, Label, Textarea } from "keep-react";
 import { db, storage } from "../../../firebase/firebaseConfig";
 import { ImageUpload } from "./ImageUpload";
 import { PdfUpload } from "./PdfUpload";
+import pdfPagesCount from "../../../utils/pdfPagesCount";
 
 const BreadcrumbComponent = () => {
   return (
@@ -32,10 +33,12 @@ export const AddNewPdfBook = () => {
     const fileUrl = await getDownloadURL(data.ref);
     return { filename, fileUrl };
   };
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
     if (!pictureFile && !pdfFile) return;
+    const pdfPages = await pdfPagesCount(pdfFile);
 
     await addDoc(collection(db, "books"), {
       name: pdfName,
@@ -44,6 +47,7 @@ export const AddNewPdfBook = () => {
       pdfDetail: await uploadFile(pdfFile),
       description: pdfDescription,
       currentPage: 1,
+      totalPage: pdfPages,
     });
   };
   return (
