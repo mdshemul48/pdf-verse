@@ -28,9 +28,7 @@ export const PdfBook = ({ pdfInfo }) => {
           <img
             src={pdfInfo.imageDetail.fileUrl}
             alt="image"
-            // maxWidth={600}
             className="object-cover h-[500px]"
-            // height={400}
           />
         </div>
       </Card.Header>

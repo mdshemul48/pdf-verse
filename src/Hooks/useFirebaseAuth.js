@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 const useFirebase = () => {
@@ -17,6 +18,22 @@ const useFirebase = () => {
     setIsLoading(true);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
+      .then((userCredential) => {
+        setUser(userCredential.user);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error);
+        setIsLoading(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const signInWithEmailPassword = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
         setIsLoading(false);
@@ -61,6 +78,7 @@ const useFirebase = () => {
     isLoading,
     error,
     signInWithGoogle,
+    signInWithEmailPassword,
     logOut,
   };
 };

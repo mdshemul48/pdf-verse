@@ -9,8 +9,7 @@ import useAuth from "./Hooks/useAuth.js";
 
 function App() {
   const { user } = useAuth();
-  console.log(user);
-  return !user.displayName ? (
+  return !user.email ? (
     <LoginPage />
   ) : (
     <BrowserRouter>

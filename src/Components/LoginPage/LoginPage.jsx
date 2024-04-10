@@ -1,17 +1,20 @@
 import { Envelope, GoogleLogo, Lock } from "phosphor-react";
 import { Button, Card, Divider, Icon, Input, Label } from "keep-react";
 import useAuth from "../../Hooks/useAuth";
+import { useState } from "react";
 
 const LoginPage = () => {
-  const { user, signInWithGoogle } = useAuth();
-  console.log(user);
+  const { signInWithGoogle, signInWithEmailPassword } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
+    signInWithEmailPassword(email, password);
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="flex justify-center mt-40">
+    <div className="flex justify-center mt-40">
       <Card className="max-w-sm">
         <Card.Content className="space-y-3">
           <Card.Header>
@@ -34,7 +37,7 @@ const LoginPage = () => {
             </Button>
           </div>
           <Divider>Or</Divider>
-          <form className="space-y-2">
+          <form onSubmit={onSubmitHandler} className="space-y-2">
             <fieldset className="space-y-1">
               <Label htmlFor="email">Email*</Label>
               <div className="relative">
@@ -43,6 +46,7 @@ const LoginPage = () => {
                   type="email"
                   placeholder="Enter email"
                   className="ps-11"
+                  onChange={(event) => setEmail(event.target.value)}
                 />
                 <Icon>
                   <Envelope size={19} color="#AFBACA" />
@@ -57,6 +61,7 @@ const LoginPage = () => {
                   placeholder="Enter password"
                   type="password"
                   className="ps-11"
+                  onChange={(event) => setPassword(event.target.value)}
                 />
                 <Icon>
                   <Lock size={19} color="#AFBACA" />
@@ -68,13 +73,14 @@ const LoginPage = () => {
               size="xs"
               color="secondary"
               variant="outline"
+              type="submit"
             >
               Login
             </Button>
           </form>
         </Card.Content>
       </Card>
-    </form>
+    </div>
   );
 };
 
