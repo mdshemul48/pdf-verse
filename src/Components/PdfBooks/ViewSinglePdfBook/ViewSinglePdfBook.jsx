@@ -1,6 +1,6 @@
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
-import { updateDoc, getDoc, doc } from "firebase/firestore";
+import { updateDoc, getDoc, doc, onSnapshot, query } from "firebase/firestore";
 
 // Call the async function
 
@@ -10,7 +10,7 @@ import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
 
 import { Breadcrumb, Divider } from "keep-react";
 import { BookDetail } from "./BookDetail";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PDFViewer } from "./PDFViewer";
 import { useParams } from "react-router-dom";
 import { db } from "../../../firebase/firebaseConfig";
@@ -44,17 +44,23 @@ const ViewSinglePdfBook = () => {
   }, [pdfId]);
 
   useEffect(() => {
-    if (currentPage != 0 && numberOfPage != 0 && !pageLoaded && pdfInfo) {
+    if (numberOfPage !== 0 && !pageLoaded && pdfInfo) {
       jumpToPage(pdfInfo.currentPage - 1);
       setPageLoaded(true);
     }
-  }, [currentPage, jumpToPage, numberOfPage, pageLoaded, pdfInfo]);
+  }, [jumpToPage, numberOfPage, pageLoaded, pdfInfo]);
 
-  useEffect(() => {
-    if (currentPage != 0) {
-      updateDoc(doc(db, "books", pdfId), { currentPage });
-    }
-  }, [currentPage, pdfId]);
+  const onPageChangeHandler = useCallback(
+    async (updatedPageNumber) => {
+      setCurrentPage(updatedPageNumber);
+      if (pageLoaded) {
+        await updateDoc(doc(db, "books", pdfId), {
+          currentPage: updatedPageNumber,
+        });
+      }
+    },
+    [pageLoaded, pdfId]
+  );
 
   return (
     pdfInfo && (
@@ -75,6 +81,7 @@ const ViewSinglePdfBook = () => {
           setNumberOfPages={setNumberOfPages}
           defaultLayoutPluginInstance={defaultLayoutPluginInstance}
           pageNavigationPluginInstance={pageNavigationPluginInstance}
+          onPageChangeHandler={onPageChangeHandler}
         />
       </div>
     )
