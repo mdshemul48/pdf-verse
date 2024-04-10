@@ -24,12 +24,15 @@ export const PdfBook = ({ pdfInfo }) => {
   return (
     <Card className="m-2">
       <Card.Header>
-        <img
-          src={pdfInfo.imageDetail.fileUrl}
-          alt="image"
-          width={600}
-          height={400}
-        />
+        <div className="relative overflow-hidden bg-gray-200 rounded-lg">
+          <img
+            src={pdfInfo.imageDetail.fileUrl}
+            alt="image"
+            // maxWidth={600}
+            className="object-cover h-[500px]"
+            // height={400}
+          />
+        </div>
       </Card.Header>
       <Card.Content>
         <Card.Title className="font-Libre font-bold">{pdfInfo.name}</Card.Title>
@@ -38,7 +41,9 @@ export const PdfBook = ({ pdfInfo }) => {
         </Card.Title>
 
         <Card.Description>
-          <p className="text-gray-600 font-sans">{pdfInfo.description}</p>
+          <p className="text-gray-600 font-sans">
+            {pdfInfo.description.slice(0, 300)}...
+          </p>
           <ProgressBar pdfInfo={pdfInfo} />
         </Card.Description>
         <div className="flex">

@@ -1,7 +1,10 @@
 import { Navbar, Button } from "keep-react";
 import { Link } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
 
 export const NavbarComponent = () => {
+  const { logOut } = useAuth();
+
   return (
     <Navbar fluid={true} className="shadow">
       <Navbar.Container className="flex items-center justify-between">
@@ -36,7 +39,7 @@ export const NavbarComponent = () => {
         </Navbar.Container>
 
         <Navbar.Container className="flex gap-2">
-          <Button size="sm" color="error" variant="outline">
+          <Button size="sm" color="error" variant="outline" onClick={logOut}>
             Logout
           </Button>
           <Navbar.Toggle />

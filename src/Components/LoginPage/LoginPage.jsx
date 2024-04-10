@@ -1,9 +1,17 @@
 import { Envelope, GoogleLogo, Lock } from "phosphor-react";
 import { Button, Card, Divider, Icon, Input, Label } from "keep-react";
+import useAuth from "../../Hooks/useAuth";
 
 const LoginPage = () => {
+  const { user, signInWithGoogle } = useAuth();
+  console.log(user);
+
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <div className="flex justify-center mt-40">
+    <form onSubmit={onSubmitHandler} className="flex justify-center mt-40">
       <Card className="max-w-sm">
         <Card.Content className="space-y-3">
           <Card.Header>
@@ -18,6 +26,8 @@ const LoginPage = () => {
               variant="outline"
               color="secondary"
               className="w-full"
+              onClick={signInWithGoogle}
+              type="button"
             >
               <GoogleLogo size={20} className="mr-1.5" />
               Google
@@ -64,7 +74,7 @@ const LoginPage = () => {
           </form>
         </Card.Content>
       </Card>
-    </div>
+    </form>
   );
 };
 
