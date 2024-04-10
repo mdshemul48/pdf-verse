@@ -28,7 +28,7 @@ export const ViewAllPdfBook = () => {
     });
     return () => unSub();
   }, []);
-  // console.log(pdfBooks);
+
   return (
     <div className="w-[75%] mx-auto">
       <BreadcrumbComponent />
@@ -36,16 +36,6 @@ export const ViewAllPdfBook = () => {
         {pdfBooks.map((pdfBook) => (
           <PdfBook key={pdfBook.id} pdfInfo={pdfBook} />
         ))}
-
-        {/* <PdfBook />
-        <PdfBook />
-        <PdfBook />
-        <PdfBook />
-        <PdfBook />
-        <PdfBook />
-        <PdfBook />
-        <PdfBook />
-        <PdfBook /> */}
       </div>
     </div>
   );

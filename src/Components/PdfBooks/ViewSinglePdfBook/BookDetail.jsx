@@ -3,7 +3,7 @@ import { CircleProgress, Typography } from "keep-react";
 export const BookDetail = ({ currentPage, numberOfPage, pdfInfo }) => {
   return (
     <div className="mt-5 ms-5 lg:flex justify-between">
-      <div>
+      <div className="flex-auto">
         <Typography
           variant="heading-3"
           className="font-Libre font-semibold text-slate-900 max-w-[75%]"
@@ -17,11 +17,11 @@ export const BookDetail = ({ currentPage, numberOfPage, pdfInfo }) => {
           By <span className="text-blue-600">{pdfInfo.writer}</span>
         </Typography>
       </div>
-      <div>
+      <div className="relative overflow-hidden bg-gray-200 rounded-lg">
         <img
           src={pdfInfo.imageDetail.fileUrl}
           alt="image"
-          className="lg:mt-0 mt-5 rounded-lg lg:w-[500px] w-full"
+          className="object-cover h-[300px] lg:mt-0 mt-5 rounded-lg w-full"
         />
       </div>
       <div className="flex justify-center items-center lg:mt-0 mt-6 lg:ms-10 border-2 border-slate-400 rounded-md p-5">

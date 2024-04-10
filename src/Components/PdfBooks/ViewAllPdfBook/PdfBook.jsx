@@ -1,7 +1,11 @@
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { ref, deleteObject } from "firebase/storage";
+
 import { Button, Card } from "keep-react";
 import { LineProgress } from "keep-react";
 import { Trash, Swap } from "phosphor-react";
 import { Link } from "react-router-dom";
+import { db, storage } from "../../../firebase/firebaseConfig";
 
 const ProgressBar = ({ pdfInfo }) => {
   return (
@@ -21,6 +25,19 @@ const ProgressBar = ({ pdfInfo }) => {
 };
 
 export const PdfBook = ({ pdfInfo }) => {
+  const onDeleteHandler = async () => {
+    if (!confirm("Are you sure you want to delete this?")) return;
+    try {
+      const pdfObj = doc(db, "books", pdfInfo.id);
+      const pdfData = (await getDoc(pdfObj)).data();
+
+      await deleteObject(ref(storage, pdfData.imageDetail.filename));
+      await deleteObject(ref(storage, pdfData.pdfDetail.filename));
+      await deleteDoc(pdfObj);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return (
     <Card className="m-2">
       <Card.Header>
@@ -65,6 +82,7 @@ export const PdfBook = ({ pdfInfo }) => {
             variant="outline"
             className="mt-2 ms-1 p-2"
             title="delete"
+            onClick={onDeleteHandler}
           >
             <Trash size={24} />{" "}
           </Button>
