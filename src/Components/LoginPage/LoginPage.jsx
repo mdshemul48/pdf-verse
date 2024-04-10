@@ -1,5 +1,13 @@
 import { Envelope, GoogleLogo, Lock } from "phosphor-react";
-import { Button, Card, Divider, Icon, Input, Label } from "keep-react";
+import {
+  Button,
+  Card,
+  Divider,
+  Icon,
+  Input,
+  Label,
+  Typography,
+} from "keep-react";
 import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
 
@@ -14,8 +22,14 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex justify-center mt-40">
-      <Card className="max-w-sm">
+    <div className="text-center mt-40">
+      <Typography
+        variant="heading-5"
+        className="font-Kaushan font-bold text-gray-400 text-center mb-5"
+      >
+        PDF Verse
+      </Typography>
+      <Card className="max-w-sm mx-auto">
         <Card.Content className="space-y-3">
           <Card.Header>
             <Card.Title>Login an account</Card.Title>

@@ -9,7 +9,7 @@ export const NavbarComponent = () => {
     <Navbar fluid={true} className="shadow">
       <Navbar.Container className="flex items-center justify-between">
         <Navbar.Container className="flex items-center">
-          <Navbar.Brand className="font-Libre font-bold text-lg text-purple-700">
+          <Navbar.Brand className="font-Kaushan text-2xl font-bold text-gray-700">
             PDF Verse
           </Navbar.Brand>
           <Navbar.Divider></Navbar.Divider>

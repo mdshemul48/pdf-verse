@@ -10,6 +10,7 @@ export default {
     extend: {
       fontFamily: {
         Libre: ["Libre Baskerville", "serif"],
+        Kaushan: ["Kaushan Script", "cursive"],
       },
     },
   },

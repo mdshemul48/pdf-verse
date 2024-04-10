@@ -9,6 +9,7 @@ import { db, storage } from "../../../firebase/firebaseConfig";
 import { ImageUpload } from "./ImageUpload";
 import { PdfUpload } from "./PdfUpload";
 import pdfPagesCount from "../../../utils/pdfPagesCount";
+import { useNavigate } from "react-router-dom";
 
 const BreadcrumbComponent = () => {
   return (
@@ -20,6 +21,7 @@ const BreadcrumbComponent = () => {
 };
 
 export const AddNewPdfBook = () => {
+  const navigate = useNavigate();
   const [pdfName, setPdfName] = useState("");
   const [pdfDescription, setPdfDescription] = useState("");
   const [pdfWriterName, setPdfWriterName] = useState("");
@@ -40,7 +42,7 @@ export const AddNewPdfBook = () => {
     if (!pictureFile && !pdfFile) return;
     const pdfPages = await pdfPagesCount(pdfFile);
 
-    await addDoc(collection(db, "books"), {
+    const createdPdfDoc = await addDoc(collection(db, "books"), {
       name: pdfName,
       writer: pdfWriterName,
       imageDetail: await uploadFile(pictureFile),
@@ -49,6 +51,7 @@ export const AddNewPdfBook = () => {
       currentPage: 1,
       totalPage: pdfPages,
     });
+    navigate(`/read/${createdPdfDoc.id}`);
   };
   return (
     <form onSubmit={onSubmitHandler} className="w-[75%] mx-auto">
