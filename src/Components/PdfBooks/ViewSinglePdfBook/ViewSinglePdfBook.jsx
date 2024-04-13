@@ -1,6 +1,6 @@
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
-import { updateDoc, getDoc, doc, onSnapshot, query } from "firebase/firestore";
+import { updateDoc, getDoc, doc } from "firebase/firestore";
 
 // Call the async function
 

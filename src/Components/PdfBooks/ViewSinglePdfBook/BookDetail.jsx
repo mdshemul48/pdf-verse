@@ -17,14 +17,14 @@ export const BookDetail = ({ currentPage, numberOfPage, pdfInfo }) => {
           By <span className="text-blue-600">{pdfInfo.writer}</span>
         </Typography>
       </div>
-      <div className="relative overflow-hidden bg-gray-200 rounded-lg">
+      <div className=" bg-gray-200 rounded-lg min-w-[265px] h-full">
         <img
           src={pdfInfo.imageDetail.fileUrl}
           alt="image"
-          className="object-cover h-[300px] lg:mt-0 mt-5 rounded-lg w-full"
+          className="object-cover rounded-lg w-full"
         />
       </div>
-      <div className="flex justify-center items-center lg:mt-0 mt-6 lg:ms-10 border-2 border-slate-400 rounded-md p-5">
+      <div className="flex justify-center items-center lg:mt-0 mt-6 lg:ms-10 border-2 border-slate-400 rounded-md py-5 px-8">
         <CircleProgress
           progress={((currentPage / numberOfPage) * 100).toFixed(1)}
           size="2xl"
