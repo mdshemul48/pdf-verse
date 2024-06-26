@@ -3,6 +3,7 @@ import { Viewer } from "@react-pdf-viewer/core";
 export const PDFViewer = ({
   CurrentPageLabel,
   onPageChangeHandler,
+  onZoomChangeHandler,
   setNumberOfPages,
   defaultLayoutPluginInstance,
   pageNavigationPluginInstance,
@@ -19,9 +20,10 @@ export const PDFViewer = ({
       </CurrentPageLabel>
       <Viewer
         theme={"dark"}
-        defaultScale={1.6}
+        defaultScale={pdfInfo.zoomLevel || 1.5}
         fileUrl={pdfInfo.pdfDetail.fileUrl}
         plugins={[defaultLayoutPluginInstance, pageNavigationPluginInstance]}
+        onZoom={onZoomChangeHandler}
       />
     </div>
   );

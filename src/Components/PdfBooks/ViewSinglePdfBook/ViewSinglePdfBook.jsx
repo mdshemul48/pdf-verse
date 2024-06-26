@@ -1,8 +1,8 @@
+import { openFullScreen } from "../../../utils/screenManage";
+
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { updateDoc, getDoc, doc } from "firebase/firestore";
-
-// Call the async function
 
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
@@ -14,6 +14,7 @@ import { useCallback, useEffect, useState } from "react";
 import { PDFViewer } from "./PDFViewer";
 import { useParams } from "react-router-dom";
 import { db } from "../../../firebase/firebaseConfig";
+
 const BreadcrumbComponent = () => {
   return (
     <Breadcrumb>
@@ -62,6 +63,27 @@ const ViewSinglePdfBook = () => {
     [pageLoaded, pdfId]
   );
 
+  const onZoomChangeHandler = async (event) => {
+    await updateDoc(doc(db, "books", pdfId), {
+      zoomLevel: event.scale,
+    });
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "f" || event.key === "F") {
+        openFullScreen();
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
+
   return (
     pdfInfo && (
       <div>
@@ -82,6 +104,7 @@ const ViewSinglePdfBook = () => {
           defaultLayoutPluginInstance={defaultLayoutPluginInstance}
           pageNavigationPluginInstance={pageNavigationPluginInstance}
           onPageChangeHandler={onPageChangeHandler}
+          onZoomChangeHandler={onZoomChangeHandler}
         />
       </div>
     )
