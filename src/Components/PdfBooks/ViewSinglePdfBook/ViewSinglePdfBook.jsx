@@ -4,9 +4,6 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { updateDoc, getDoc, doc } from "firebase/firestore";
 
-import "@react-pdf-viewer/core/lib/styles/index.css";
-import "@react-pdf-viewer/default-layout/lib/styles/index.css";
-import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
 
 import { Breadcrumb, Divider } from "keep-react";
 import { BookDetail } from "./BookDetail";
