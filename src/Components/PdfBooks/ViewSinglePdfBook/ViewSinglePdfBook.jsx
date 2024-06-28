@@ -1,6 +1,5 @@
 import { openFullScreen } from "../../../utils/screenManage";
 
-import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { updateDoc, getDoc, doc } from "firebase/firestore";
 
@@ -29,14 +28,16 @@ const ViewSinglePdfBook = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [numberOfPage, setNumberOfPages] = useState(0);
 
-  const defaultLayoutPluginInstance = defaultLayoutPlugin({});
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const { CurrentPageLabel, jumpToPage } = pageNavigationPluginInstance;
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await getDoc(doc(db, "books", pdfId));
-      setPdfInfo({ ...data.data(), id: doc.id });
+      const docRef = doc(db, "books", pdfId);
+      const data = await getDoc(docRef);
+      if (data.exists()) {
+        setPdfInfo({ ...data.data(), id: data.id });
+      }
     };
     fetch();
   }, [pdfId]);
@@ -98,7 +99,6 @@ const ViewSinglePdfBook = () => {
           CurrentPageLabel={CurrentPageLabel}
           setCurrentPage={setCurrentPage}
           setNumberOfPages={setNumberOfPages}
-          defaultLayoutPluginInstance={defaultLayoutPluginInstance}
           pageNavigationPluginInstance={pageNavigationPluginInstance}
           onPageChangeHandler={onPageChangeHandler}
           onZoomChangeHandler={onZoomChangeHandler}

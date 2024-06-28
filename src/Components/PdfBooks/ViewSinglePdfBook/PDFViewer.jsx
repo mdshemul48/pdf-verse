@@ -1,43 +1,38 @@
 import { Viewer } from "@react-pdf-viewer/core";
-import { highlightPlugin } from "@react-pdf-viewer/highlight";
+import { MessageIcon } from "@react-pdf-viewer/highlight";
 
+import ExplainWordDictionaryModal from "./PdfViewerTools/ExplainWordDictionaryModal";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
 import "@react-pdf-viewer/highlight/lib/styles/index.css";
-import ExplainToolTip from "./PdfViewerTools/ExplainToolTip";
-import { useState } from "react";
-import ExplainWordDictionaryModal from "./PdfViewerTools/ExplainWordDictionaryModal";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import useManageDictionaryAndNotes from "../../../Hooks/useManageDictionaryAndNotes";
 
 export const PDFViewer = ({
   CurrentPageLabel,
   onPageChangeHandler,
   onZoomChangeHandler,
   setNumberOfPages,
-  defaultLayoutPluginInstance,
   pageNavigationPluginInstance,
   pdfInfo,
 }) => {
-  const [selectedWord, setSelectedWord] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    closeModal,
+    sidebarNotes,
+    selectedWord,
+    isOpen,
+    highlightPluginInstance,
+  } = useManageDictionaryAndNotes(pdfInfo.id);
 
-  const explainWordDictionary = (props) => {
-    const { selectedText } = props;
-
-    setSelectedWord(selectedText);
-    setIsOpen(true);
-    props.cancel();
-  };
-
-  const highlightPluginInstance = highlightPlugin({
-    renderHighlightTarget: ExplainToolTip,
-    renderHighlightContent: explainWordDictionary,
+  const defaultLayoutPluginInstance = defaultLayoutPlugin({
+    sidebarTabs: (defaultTabs) =>
+      defaultTabs.concat({
+        content: sidebarNotes,
+        icon: <MessageIcon />,
+        title: "Notes",
+      }),
   });
-
-  const closeModal = () => {
-    setSelectedWord("");
-    setIsOpen(false);
-  };
 
   return (
     <>
@@ -54,6 +49,7 @@ export const PDFViewer = ({
             return null;
           }}
         </CurrentPageLabel>
+
         <Viewer
           theme={"dark"}
           defaultScale={pdfInfo.zoomLevel || 1.5}
