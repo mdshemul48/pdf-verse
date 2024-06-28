@@ -27,7 +27,6 @@ const useManageDictionaryAndNotes = (bookId) => {
 
   useEffect(() => {
     const getNotesByBookId = async () => {
-      // Create a reference to the "notes" collection
       const notesRef = collection(db, "notes");
       const q = query(notesRef, where("bookId", "==", bookId));
       const querySnapshot = await getDocs(q);
@@ -107,7 +106,7 @@ const useManageDictionaryAndNotes = (bookId) => {
                 style={Object.assign(
                   {},
                   {
-                    background: "yellow",
+                    background: "#fcd34d",
                     opacity: 0.4,
                   },
                   props.getCssProperties(area, props.rotation)
@@ -143,6 +142,7 @@ const useManageDictionaryAndNotes = (bookId) => {
           left: `${props.selectionRegion.left}%`,
           top: `${props.selectionRegion.top + props.selectionRegion.height}%`,
           zIndex: 1,
+          width: "350px",
         }}
       >
         <div>
@@ -150,6 +150,7 @@ const useManageDictionaryAndNotes = (bookId) => {
             rows={3}
             style={{
               border: "1px solid rgba(0, 0, 0, .3)",
+              width: "100%",
             }}
             onChange={(e) => setMessage(e.target.value)}
           />
@@ -195,7 +196,7 @@ const useManageDictionaryAndNotes = (bookId) => {
             <div
               key={note.id}
               style={{
-                borderBottom: "1px solid rgba(0, 0, 0, .3)",
+                borderBottom: "1px solid #f9f9f94d",
                 cursor: "pointer",
                 padding: "8px",
               }}
@@ -203,7 +204,7 @@ const useManageDictionaryAndNotes = (bookId) => {
             >
               <blockquote
                 style={{
-                  borderLeft: "2px solid rgba(0, 0, 0, 0.2)",
+                  borderLeft: "2px solid #ffffff54",
                   fontSize: ".75rem",
                   lineHeight: 1.5,
                   margin: "0 0 8px 0",
@@ -211,7 +212,19 @@ const useManageDictionaryAndNotes = (bookId) => {
                   textAlign: "justify",
                 }}
               >
-                {note.quote} - {note.highlightAreas[0].pageIndex + 1}
+                {note.quote}{" "}
+                <span
+                  style={{
+                    backgroundColor: "#374151",
+                    color: "#cbd5e1",
+                    padding: "2px 3px",
+                    borderRadius: "30%",
+                    fontSize: "13px",
+                    marginLeft: "2px",
+                  }}
+                >
+                  {note.highlightAreas[0].pageIndex + 1}
+                </span>
               </blockquote>
               {note.content}{" "}
               <Badge
