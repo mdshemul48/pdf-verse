@@ -68,7 +68,7 @@ const ViewSinglePdfBook = () => {
 
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.key === "f" || event.key === "F") {
+      if ((event.key === "F" || event.key === "f") && event.shiftKey) {
         openFullScreen();
         window.scrollTo(0, document.body.scrollHeight);
       }
