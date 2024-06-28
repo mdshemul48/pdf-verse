@@ -4,7 +4,6 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
 import { updateDoc, getDoc, doc } from "firebase/firestore";
 
-
 import { Breadcrumb, Divider } from "keep-react";
 import { BookDetail } from "./BookDetail";
 import { useCallback, useEffect, useState } from "react";
@@ -29,6 +28,7 @@ const ViewSinglePdfBook = () => {
   const [pageLoaded, setPageLoaded] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [numberOfPage, setNumberOfPages] = useState(0);
+
   const defaultLayoutPluginInstance = defaultLayoutPlugin({});
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const { CurrentPageLabel, jumpToPage } = pageNavigationPluginInstance;

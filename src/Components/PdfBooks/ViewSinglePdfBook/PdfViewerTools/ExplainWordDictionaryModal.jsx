@@ -2,8 +2,9 @@ import { Button, Modal } from "keep-react";
 import { useEffect, useState } from "react";
 
 import { Skeleton } from "keep-react";
-import getPronunciationRegion from "../../../../utils/pronunciationRegion";
 import toast, { Toaster } from "react-hot-toast";
+import { Meaning } from "./Meaning";
+import { WordPhonetics } from "./WordPhonetics";
 
 export const SkeletonComponent = () => {
   return (
@@ -59,50 +60,10 @@ const ExplainWordDictionaryModal = ({ isOpen, closeModal, selectedWord }) => {
                 </h1>
                 <hr />
                 <div className="overflow-y-auto scrollbar sm:w-full max-h-[32rem]">
-                  <div className="my-2">
-                    {wordInformation[0].phonetics.map((phonetic, index) => (
-                      <button
-                        className={`${
-                          phonetic?.audio ? "bg-cyan-200" : "bg-slate-300"
-                        } py-1 px-2 mx-1 text-slate-700 font-semibold rounded-md`}
-                        key={index}
-                        onClick={() => {
-                          const audio = new Audio(phonetic.audio);
-                          audio.play();
-                        }}
-                        title={phonetic?.audio ? "Click to play audio" : null}
-                      >
-                        {phonetic.text} (
-                        {getPronunciationRegion(phonetic?.audio)})
-                      </button>
-                    ))}
-                  </div>
-                  {wordInformation[0].meanings.map((meaning) => {
-                    return (
-                      <div
-                        key={meaning.partOfSpeech}
-                        className="bg-slate-300 p-2 my-2 rounded-md"
-                      >
-                        <h1 className="text-body-1">{meaning.partOfSpeech}</h1>
-
-                        <h3>synonyms: {meaning.synonyms.join(", ")}</h3>
-                        <h3>antonyms: {meaning.antonyms.join(", ")}</h3>
-                        <hr />
-                        <h2 className="text-body-2">Definitions</h2>
-                        {meaning.definitions.map((definition, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className="bg-slate-200 rounded-md my-1 p-1"
-                            >
-                              <p>{definition.definition}</p>
-                              <p className="ms-5"> Ex: {definition?.example}</p>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    );
-                  })}
+                  <WordPhonetics phonetics={wordInformation[0].phonetics} />
+                  {wordInformation[0].meanings.map((meaning) => (
+                    <Meaning key={meaning.partOfSpeech} meaning={meaning} />
+                  ))}
                 </div>
               </div>
             )}{" "}
