@@ -21,6 +21,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { sayIt } from "../utils/speak";
+import { searchIt } from "../utils/searchHandler";
 
 const useManageDictionaryAndNotes = (bookId) => {
   const [selectedWord, setSelectedWord] = useState("");
@@ -104,6 +105,21 @@ const useManageDictionaryAndNotes = (bookId) => {
           content={() => (
             <div style={{ width: "100px" }} className="ms-2">
               Say it
+            </div>
+          )}
+          offset={{ left: 0, top: -8 }}
+        />
+        <div className="ms-1" />
+        <Tooltip
+          position={Position.TopCenter}
+          target={
+            <Button onClick={() => searchIt(props.selectedText)}>
+              <FaWpexplorer />
+            </Button>
+          }
+          content={() => (
+            <div style={{ width: "110px" }} className="ms-2">
+              Explore More
             </div>
           )}
           offset={{ left: 0, top: -8 }}
