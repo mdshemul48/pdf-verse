@@ -126,7 +126,9 @@ const useManageDictionaryAndNotes = (bookId) => {
         bookId,
       };
 
-      await addDoc(collection(db, "notes"), note);
+      const createdNote = await addDoc(collection(db, "notes"), note);
+      console.log();
+      note.id = createdNote.id;
       setNotes(notes.concat([note]));
       setMessage("");
       props.cancel();
