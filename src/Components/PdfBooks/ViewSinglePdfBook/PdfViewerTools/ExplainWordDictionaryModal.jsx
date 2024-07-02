@@ -1,10 +1,12 @@
 import { Button, Modal } from "keep-react";
 import { useEffect, useState } from "react";
+import { HiSpeakerWave } from "react-icons/hi2";
 
 import { Skeleton } from "keep-react";
 import toast, { Toaster } from "react-hot-toast";
 import { Meaning } from "./Meaning";
 import { WordPhonetics } from "./WordPhonetics";
+import { sayIt } from "../../../../utils/speak";
 
 export const SkeletonComponent = () => {
   return (
@@ -53,11 +55,18 @@ const ExplainWordDictionaryModal = ({ isOpen, closeModal, selectedWord }) => {
               <SkeletonComponent />
             ) : (
               <div className="!mb-6">
-                <h1 className="mb-1 text-body-1 font-semibold text-metal-900">
-                  Define {"=>"} {`"`}
-                  {selectedWord}
-                  {`"`}
-                </h1>
+                <div className="flex ">
+                  <h1 className="mb-1 text-body-1 font-semibold text-metal-900">
+                    Define {"=>"} {`"`}
+                    {selectedWord}
+                    {`"`}
+                  </h1>
+                  <HiSpeakerWave
+                    className="cursor-pointer text-p  text-gray-700 rounded-sm mt-1 ms-2"
+                    size="20px"
+                    onClick={() => sayIt(selectedWord)}
+                  />
+                </div>
                 <hr />
                 <div className="overflow-y-auto scrollbar sm:w-full max-h-[32rem]">
                   <WordPhonetics phonetics={wordInformation[0].phonetics} />
