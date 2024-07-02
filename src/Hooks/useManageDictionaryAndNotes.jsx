@@ -7,6 +7,8 @@ import {
 } from "@react-pdf-viewer/core";
 import { highlightPlugin, MessageIcon } from "@react-pdf-viewer/highlight";
 import { FaWpexplorer } from "react-icons/fa6";
+import { HiOutlineSpeakerWave } from "react-icons/hi2";
+
 import { Badge } from "keep-react";
 import { db } from "../firebase/firebaseConfig";
 import {
@@ -18,6 +20,7 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
+import { sayIt } from "../utils/speak";
 
 const useManageDictionaryAndNotes = (bookId) => {
   const [selectedWord, setSelectedWord] = useState("");
@@ -86,6 +89,21 @@ const useManageDictionaryAndNotes = (bookId) => {
           content={() => (
             <div style={{ width: "100px" }} className="ms-2">
               Add a note
+            </div>
+          )}
+          offset={{ left: 0, top: -8 }}
+        />
+        <div className="ms-1" />
+        <Tooltip
+          position={Position.TopCenter}
+          target={
+            <Button onClick={() => sayIt(props.selectedText)}>
+              <HiOutlineSpeakerWave />
+            </Button>
+          }
+          content={() => (
+            <div style={{ width: "100px" }} className="ms-2">
+              Say it
             </div>
           )}
           offset={{ left: 0, top: -8 }}
